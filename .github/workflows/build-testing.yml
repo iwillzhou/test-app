@@ -1,0 +1,32 @@
+name: Build for Testing
+
+on:
+  push:
+    branches:
+      - feature/*  # 监听 feature/** 分支的推送事件
+  pull_request:
+    branches:
+      - feature/*  # 监听针对 feature/* 分支的 PR
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: pnpm install
+
+      # Build the app
+      - name: Build Expo app
+        run: expo build:android --no-wait  # 或 expo build:ios --no-wait

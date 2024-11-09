@@ -29,6 +29,21 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: pnpm install
+      
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 31
+          ndk: false
+
+      - name: Ensure adb is available
+        run: |
+          sdkmanager "platform-tools"
+          adb --version
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
+          PATH: /usr/local/lib/android/sdk/platform-tools:/usr/local/lib/android/sdk/tools:$PATH
+
 
       # Build the app
       - name: Build Expo app

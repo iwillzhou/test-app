@@ -33,17 +33,19 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
         with:
-          api-level: 31
-          ndk: false
+          api-level: 31        # 选择 API 级别
+          build-tools: 31.0.0  # 选择构建工具版本
+          ndk: false           # 如果不需要 NDK，可以禁用
+
+      - name: Install Watchman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y watchman
 
       - name: Ensure adb is available
         run: |
-          sdkmanager "platform-tools"
           adb --version
-        env:
-          ANDROID_HOME: /usr/local/lib/android/sdk
-          PATH: /usr/local/lib/android/sdk/platform-tools:/usr/local/lib/android/sdk/tools:$PATH
-
+          sdkmanager --list
 
       # Build the app
       - name: Build Expo app

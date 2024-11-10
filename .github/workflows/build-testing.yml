@@ -33,7 +33,7 @@ jobs:
         uses: android-actions/setup-android@v3
       
       - name: Run expo prebuild
-        uses: pnpm exec expo prebuild
+        run: pnpm exec expo prebuild
 
       - name: Build SampleApplication
         run: ./gradlew app:bundleRelease

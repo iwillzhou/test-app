@@ -36,11 +36,11 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
       
-      - name: Setup Expo
+      - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
-          expo-version: latest
           eas-version: latest
+          packager: pnpm
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
@@ -73,11 +73,11 @@ jobs:
         with:
           version: 'latest'
 
-      - name: Setup Expo
+      - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
-          expo-version: latest
           eas-version: latest
+          packager: pnpm
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies

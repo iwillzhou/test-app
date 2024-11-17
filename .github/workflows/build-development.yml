@@ -1,4 +1,4 @@
-name: Build for Testing/Debuging
+name: Build for Development
 
 on:
   push:
@@ -16,16 +16,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 'latest'
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-
-      - name: Set up Pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 'latest'
+          cache: 'pnpm'
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -47,13 +48,13 @@ jobs:
         run: pnpm i
 
       - name: Build Android app
-        run: eas build --platform android --local --output ${{ github.workspace }}/app-release.aab
+        run: eas build -p android -e development --local --output ${{ github.workspace }}/app-release.apk
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: ${{ github.workspace }}/app-release.aab
+          path: ${{ github.workspace }}/app-release.apk
 
   ios-build:
     name: Build iOS IPA
@@ -63,15 +64,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
       - name: Set up Pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 'latest'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8

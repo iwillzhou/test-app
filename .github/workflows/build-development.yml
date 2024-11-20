@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-development
-          path: ${{ github.workspace }}/app-release.apk
+          path: ${{ github.workspace }}/app-development.apk
 
   ios-build:
     name: Build iOS IPA

@@ -48,7 +48,7 @@ jobs:
         run: pnpm i
 
       - name: Build Android app
-        run: eas build -p android -e development --local --output ${{ github.workspace }}/app-release.apk
+        run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-release.apk
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
@@ -86,7 +86,7 @@ jobs:
         run: pnpm i
       
       - name: Build iOS app
-        run: eas build --platform ios --local --non-interactive --output ${{ github.workspace }}/app-release.ipa
+        run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-release.ipa
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4

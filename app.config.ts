@@ -1,6 +1,8 @@
 import 'ts-node/register';
 import { ExpoConfig } from 'expo/config';
 
+const appIdSuffix = process.env.APP_ENV === 'production' ? '' : `.${process.env.APP_ENV}`;
+
 const config: ExpoConfig = {
     name: 'test-app',
     slug: 'test-app',
@@ -16,14 +18,14 @@ const config: ExpoConfig = {
     },
     ios: {
         supportsTablet: true,
-        bundleIdentifier: 'com.test.myapp'
+        bundleIdentifier: `com.test.myapp${appIdSuffix}`
     },
     android: {
         adaptiveIcon: {
             foregroundImage: './assets/images/adaptive-icon.png',
             backgroundColor: '#ffffff'
         },
-        package: 'com.test.myapp'
+        package: `com.test.myapp${appIdSuffix}`
     },
     web: {
         bundler: 'metro',

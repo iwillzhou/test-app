@@ -63,7 +63,7 @@ jobs:
         run: pnpm i
 
       - name: Build Android app
-        run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-development.apk
+        run: eas build --platform android --profile development --local --log-level debug --output ${{ github.workspace }}/app-development.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4

@@ -33,6 +33,9 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      
+      - name: Increase JVM memory
+        run: echo "org.gradle.jvmargs=-Xmx4g -XX:MaxPermSize=2g" >> ~/.gradle/gradle.properties
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3

@@ -50,10 +50,10 @@ jobs:
       - name: Build Android app
         run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-development.apk
 
-      - name: Upload AAB artifact
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
+          name: app-development
           path: ${{ github.workspace }}/app-release.apk
 
   ios-build:

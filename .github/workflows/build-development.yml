@@ -25,7 +25,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'pnpm'
 
       - name: Set up JDK 17
@@ -48,7 +48,7 @@ jobs:
         run: pnpm i
 
       - name: Build Android app
-        run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-release.apk
+        run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-development.apk
 
       - name: Upload AAB artifact
         uses: actions/upload-artifact@v4
@@ -72,7 +72,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'pnpm'
 
       - name: Setup EAS
@@ -86,7 +86,7 @@ jobs:
         run: pnpm i
       
       - name: Build iOS app
-        run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-release.ipa
+        run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-development.ipa
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4

@@ -14,12 +14,33 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Set up Android env
-        uses: ./.github/actions/build-environment
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
         with:
-          platform: 'android'
-          token: ${{ secrets.EXPO_TOKEN }}
+          version: 'latest'
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          packager: pnpm
+          token: ${{ secrets.token }}
+    
       - name: Install dependencies
         run: pnpm i
 
@@ -40,11 +61,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
   
-      - name: Set up iOS env
-        uses: ./.github/actions/build-environment
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
         with:
-          platform: 'ios'
-          token: ${{ secrets.EXPO_TOKEN }}
+          version: 'latest'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          packager: pnpm
+          token: ${{ secrets.token }}
       
       - name: Install dependencies
         run: pnpm i

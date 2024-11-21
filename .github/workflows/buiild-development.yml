@@ -1,0 +1,46 @@
+name: Build for Development
+
+on:
+  push:
+    branches:
+      - feature/*
+
+jobs:
+  android-build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Android env
+        uses: ./.github/actions/setup-build-env
+        with:
+          node_version: 'android'
+
+      - name: Build Android app
+        run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-release.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: ${{ github.workspace }}/app-release.apk
+
+  ios-build:
+    name: Build iOS IPA
+    runs-on: macos-latest
+
+    steps: 
+      - name: Set up iOS env
+        uses: ./.github/actions/setup-build-env
+        with:
+          node_version: 'ios'
+
+      - name: Build iOS app
+        run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-release.ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios
+          path: ${{ github.workspace }}/app-release.ipa
+

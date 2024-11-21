@@ -17,7 +17,8 @@ jobs:
       - name: Set up Android env
         uses: ./.github/actions/build-environment
         with:
-          node_version: 'android'
+          platform: 'android'
+          token: ${{ INPUTS.EXPO_TOKEN }}
 
       - name: Build Android app
         run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-release.apk
@@ -39,7 +40,8 @@ jobs:
       - name: Set up iOS env
         uses: ./.github/actions/build-environment
         with:
-          node_version: 'ios'
+          platform: 'ios'
+          token: ${{ INPUTS.EXPO_TOKEN }}
 
       - name: Build iOS app
         run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-release.ipa

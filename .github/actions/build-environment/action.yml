@@ -6,6 +6,9 @@ inputs:
     description: 'Select the platform to build (android, ios)'
     required: true
     default: 'android'
+  toekn:
+    description: 'EXPO_TOKEN'
+    required: true
 
 runs:
   using: 'composite'
@@ -37,7 +40,7 @@ runs:
       with:
         eas-version: latest
         packager: pnpm
-        token: ${{ secrets.EXPO_TOKEN }}
+        token: ${{ INPUTS.token }}
 
     - name: Install dependencies
       run: pnpm i

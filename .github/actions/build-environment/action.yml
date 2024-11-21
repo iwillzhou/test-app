@@ -44,3 +44,4 @@ runs:
 
     - name: Install dependencies
       run: pnpm i
+      shell: sh

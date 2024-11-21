@@ -3,7 +3,7 @@ name: Build for Development
 on:
   push:
     branches:
-      - feature/*
+      - feature/*  # 监听 feature/** 分支的推送事件
 
 jobs:
   android-build:
@@ -33,14 +33,14 @@ jobs:
       
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-
+      
       - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           packager: pnpm
           token: ${{ secrets.EXPO_TOKEN }}
-    
+
       - name: Install dependencies
         run: pnpm i
 
@@ -60,7 +60,7 @@ jobs:
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v4
-  
+
       - name: Set up Pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -78,10 +78,10 @@ jobs:
           eas-version: latest
           packager: pnpm
           token: ${{ secrets.EXPO_TOKEN }}
-      
+
       - name: Install dependencies
         run: pnpm i
-
+      
       - name: Build iOS app
         run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-release.ipa
 
@@ -90,4 +90,3 @@ jobs:
         with:
           name: ios
           path: ${{ github.workspace }}/app-release.ipa
-

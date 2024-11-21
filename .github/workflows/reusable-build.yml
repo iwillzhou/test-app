@@ -7,7 +7,7 @@ on:
         description: 'EAS build profile (development / testing / staging / production)'
         required: true
         type: string
-      buildType:
+      build-type:
         description: 'Android buildType (apk, aab)'
         required: false
         default: 'aab'

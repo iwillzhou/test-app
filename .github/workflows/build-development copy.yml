@@ -53,7 +53,7 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-development
+          name: app-development-android
           path: ${{ github.workspace }}/app-development.apk
 
   ios-build:
@@ -91,6 +91,6 @@ jobs:
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-development
+          name: app-development-ios
           path: ${{ github.workspace }}/app-development.ipa
 

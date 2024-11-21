@@ -4,7 +4,14 @@
     "appVersionSource": "remote"
   },
   "build": {
+    "base": {
+      "env": {
+        "NODE_ENV": "production",
+        "GRADLE_OPTS": "-Dorg.gradle.jvmargs='-Xmx14g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8' -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false"
+      }
+    },
     "development": {
+      "extends": "base",
       "developmentClient": true,
       "env": {
         "APP_ENV": "development"
@@ -14,6 +21,7 @@
       }
     },
     "testing": {
+      "extends": "base",
       "env": {
         "APP_ENV": "testing"
       },
@@ -22,6 +30,7 @@
       }
     },
     "staging": {
+      "extends": "base",
       "autoIncrement": true,
       "env": {
         "APP_ENV": "staging"
@@ -31,6 +40,7 @@
       }
     },
     "production": {
+      "extends": "base",
       "autoIncrement": true,
       "env": {
         "APP_ENV": "production"

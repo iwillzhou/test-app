@@ -41,8 +41,3 @@ runs:
         eas-version: latest
         packager: pnpm
         token: ${{ inputs.token }}
-
-    - name: Install dependencies
-      run: pnpm i
-      shell: sh
-

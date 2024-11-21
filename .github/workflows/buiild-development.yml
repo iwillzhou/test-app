@@ -20,6 +20,9 @@ jobs:
           platform: 'android'
           token: ${{ secrets.EXPO_TOKEN }}
 
+      - name: Install dependencies
+        run: pnpm i
+
       - name: Build Android app
         run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-release.apk
 
@@ -42,6 +45,9 @@ jobs:
         with:
           platform: 'ios'
           token: ${{ secrets.EXPO_TOKEN }}
+      
+      - name: Install dependencies
+        run: pnpm i
 
       - name: Build iOS app
         run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-release.ipa

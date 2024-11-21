@@ -11,8 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
       - name: Set up Android env
-        uses: ./.github/actions/setup-build-env
+        uses: ./.github/actions/build-environment
         with:
           node_version: 'android'
 
@@ -30,8 +33,11 @@ jobs:
     runs-on: macos-latest
 
     steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+  
       - name: Set up iOS env
-        uses: ./.github/actions/setup-build-env
+        uses: ./.github/actions/build-environment
         with:
           node_version: 'ios'
 

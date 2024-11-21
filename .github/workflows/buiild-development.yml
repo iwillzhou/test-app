@@ -18,7 +18,7 @@ jobs:
         uses: ./.github/actions/build-environment
         with:
           platform: 'android'
-          token: ${{ INPUTS.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build Android app
         run: eas build --platform android --profile development --local --output ${{ github.workspace }}/app-release.apk
@@ -41,7 +41,7 @@ jobs:
         uses: ./.github/actions/build-environment
         with:
           platform: 'ios'
-          token: ${{ INPUTS.EXPO_TOKEN }}
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build iOS app
         run: eas build --platform ios --profile development --local --output ${{ github.workspace }}/app-release.ipa

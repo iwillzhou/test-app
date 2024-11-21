@@ -6,29 +6,32 @@ on:
       - feature/*
       - release/*
 
-workflow_dispatch:
-  inputs:
-    platform:
-      description: 'Select the platform to build (android, ios, or all)'
-      required: true
-      default: 'all'
-      options:
-        - android
-        - ios
-        - all
-    profile:
-      description: 'Select the build profile'
-      required: true
-      default: 'development'
-      options:
-        - development
-        - testing
-        - staging
-        - production
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Select the platform to build (android, ios, or all)'
+        required: true
+        default: 'all'
+        options:
+          - android
+          - ios
+          - all
+      profile:
+        description: 'Select the build profile'
+        required: true
+        default: 'development'
+        options:
+          - development
+          - testing
+          - staging
+          - production
+
+
 
 jobs:
   validate-input:
     runs-on: ubuntu-latest
+
     steps:
       - name: Validate profile for feature/* branch
         if: startsWith(github.ref, 'refs/heads/feature/')

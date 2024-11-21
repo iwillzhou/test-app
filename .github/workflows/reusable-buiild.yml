@@ -4,12 +4,14 @@ on:
   workflow_call:
     inputs:
       profile:
-        description: 'EAS build profile (development,testing,staging, production)'
+        description: 'EAS build profile (development / testing / staging / production)'
         required: true
         type: string
       buildType:
         description: 'Android buildType (apk, aab)'
+        required: false
         default: 'aab'
+        type: string
     secrets:
       EXPO_TOKEN:
         description: 'An API acesss token for Expo'

@@ -14,8 +14,7 @@
       "extends": "base",
       "developmentClient": true,
       "env": {
-        "APP_ENV": "development",
-        "GRADLE_OPTS": "-Dorg.gradle.jvmargs='-Xmx14g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8' -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false"
+        "APP_ENV": "development"
       },
       "ios": {
         "simulator": true

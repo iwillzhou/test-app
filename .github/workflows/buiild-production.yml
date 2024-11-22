@@ -1,9 +1,9 @@
-name: Build for Development
+name: Build for Production
 
 on:
   push:
     branches:
-      - feature/*
+      - release/*
 
 jobs:
   build:

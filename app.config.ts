@@ -38,7 +38,7 @@ const config: ExpoConfig = {
     },
     updates: {
         // url: 'https://u.expo.dev/58154bdd-70ab-49f4-8c0b-cd74e32e3370',
-        url: 'http://localhost:3000/api/manifest',
+        url: 'http://192.168.10.6:3000/api/manifest',
         enabled: true,
         fallbackToCacheTimeout: 30000,
         codeSigningCertificate: './code-signing/certificate.pem',

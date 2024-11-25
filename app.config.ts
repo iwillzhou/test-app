@@ -37,7 +37,15 @@ const config: ExpoConfig = {
         typedRoutes: true
     },
     updates: {
-        url: 'https://u.expo.dev/58154bdd-70ab-49f4-8c0b-cd74e32e3370'
+        // url: 'https://u.expo.dev/58154bdd-70ab-49f4-8c0b-cd74e32e3370',
+        url: 'http://localhost:3000/api/manifest',
+        enabled: true,
+        fallbackToCacheTimeout: 30000,
+        codeSigningCertificate: './code-signing/certificate.pem',
+        codeSigningMetadata: {
+            keyid: 'main',
+            alg: 'rsa-v1_5-sha256'
+        }
     },
     runtimeVersion: {
         policy: 'appVersion'

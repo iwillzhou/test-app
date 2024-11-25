@@ -56,13 +56,13 @@ jobs:
         run: pnpm i
 
       - name: Build Android app
-        run: eas build --platform android --profile ${{ inputs.profile }} --local --output ${{ github.workspace }}/app-release.${{ inputs.buildType }}
+        run: eas build --platform android --profile ${{ inputs.profile }} --local --output ${{ github.workspace }}/app-release.${{ inputs.build-type }}
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: android
-          path: ${{ github.workspace }}/app-release.${{ inputs.buildType }}
+          path: ${{ github.workspace }}/app-release.${{ inputs.build-type }}
 
   ios-build:
     name: Build iOS IPA

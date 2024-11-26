@@ -1,10 +1,13 @@
 import 'ts-node/register';
 import { ExpoConfig } from 'expo/config';
 
-const appIdSuffix = process.env.APP_ENV === 'production' ? '' : `.${process.env.APP_ENV}`;
+const isProduction = process.env.APP_ENV === 'production';
+
+const appNameSuffix = isProduction ? '' : `(${process.env.APP_ENV})`;
+const appIdSuffix = isProduction ? '' : `.${process.env.APP_ENV}`;
 
 const config: ExpoConfig = {
-    name: 'test-app',
+    name: `test-app${appNameSuffix}`,
     slug: 'test-app',
     version: '1.0.0',
     orientation: 'portrait',
@@ -32,20 +35,31 @@ const config: ExpoConfig = {
         output: 'static',
         favicon: './assets/images/favicon.png'
     },
-    plugins: ['expo-router'],
+    plugins: [
+        'expo-router',
+        [
+            'expo-build-properties',
+            {
+                android: {
+                  usesCleartextTraffic: !isProduction
+                }
+            }
+        ]
+    ],
     experiments: {
         typedRoutes: true
     },
     updates: {
         // url: 'https://u.expo.dev/58154bdd-70ab-49f4-8c0b-cd74e32e3370',
-        url: 'http://192.168.10.6:3000/api/manifest',
+        // url: 'http://192.168.10.6:3000/api/manifest',
+        url: 'http://localhost:3000/api/manifest',
         enabled: true,
-        fallbackToCacheTimeout: 30000,
-        codeSigningCertificate: './code-signing/certificate.pem',
-        codeSigningMetadata: {
-            keyid: 'main',
-            alg: 'rsa-v1_5-sha256'
-        }
+        fallbackToCacheTimeout: 30000
+        // codeSigningCertificate: './code-signing/certificate.pem',
+        // codeSigningMetadata: {
+        //     keyid: 'main',
+        //     alg: 'rsa-v1_5-sha256'
+        // }
     },
     runtimeVersion: {
         policy: 'appVersion'

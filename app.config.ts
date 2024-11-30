@@ -6,6 +6,8 @@ const isProduction = process.env.APP_ENV === 'production';
 const appNameSuffix = isProduction ? '' : `(${process.env.APP_ENV})`;
 const appIdSuffix = isProduction ? '' : `.${process.env.APP_ENV}`;
 
+const version = '1.0.0';
+
 const config: ExpoConfig = {
     name: `test-app${appNameSuffix}`,
     slug: 'test-app',
@@ -51,9 +53,7 @@ const config: ExpoConfig = {
         url: 'http://localhost:3000/api/manifest'
         // url: 'http://10.0.2.2:3000/api/manifest'
     },
-    runtimeVersion: {
-        policy: 'fingerprint'
-    },
+    runtimeVersion: version.split('.')[0],
     extra: {
         eas: {
             projectId: '58154bdd-70ab-49f4-8c0b-cd74e32e3370'

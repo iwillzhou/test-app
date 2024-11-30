@@ -29,9 +29,10 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Check fingerprint
-        id: fingerprint
-        uses: expo/expo-github-action/fingerprint@main
+      - name: Get runtimeVersion
+        id: runtime-version
+        run: |
+          echo "runtimeVersion=$(expo config --type public --json | jq -r '.runtimeVersion')" >> $GITHUB_ENV
 
-      - name: Display fingerprint
-        run: echo "iOS fingerprint is ${{ steps.fingerprint.outputs.current-fingerprint.hash }}"
+      - name: Output runtimeVersion
+        run: echo "RuntimeVersion is ${{ env.runtimeVersion }}"

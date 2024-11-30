@@ -34,4 +34,4 @@ jobs:
         uses: expo/expo-github-action/fingerprint@main
 
       - name: Display fingerprint
-        run: echo "iOS fingerprint is ${{ steps.fingerprint.outputs.current-fingerprint }}"
+        run: echo "iOS fingerprint is ${{ steps.fingerprint.outputs.current-fingerprint.hash }}"

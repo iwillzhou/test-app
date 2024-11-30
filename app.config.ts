@@ -36,30 +36,15 @@ const config: ExpoConfig = {
         favicon: './assets/images/favicon.png'
     },
     plugins: [
-        'expo-router',
-        [
-            'expo-build-properties',
-            {
-                android: {
-                  usesCleartextTraffic: !isProduction
-                }
-            }
-        ]
+        'expo-router'
     ],
     experiments: {
         typedRoutes: true
     },
     updates: {
-        // url: 'https://u.expo.dev/58154bdd-70ab-49f4-8c0b-cd74e32e3370',
-        // url: 'http://192.168.10.6:3000/api/manifest',
-        url: 'http://10.0.2.2:3000/api/manifest',
-        enabled: true,
-        fallbackToCacheTimeout: 30000
-        // codeSigningCertificate: './code-signing/certificate.pem',
-        // codeSigningMetadata: {
-        //     keyid: 'main',
-        //     alg: 'rsa-v1_5-sha256'
-        // }
+        // url: 'https://expo-updates-server-nu.vercel.app/api/manifest',
+        url: 'http://localhost:3000/api/manifest',
+        // url: 'http://10.0.2.2:3000/api/manifest'
     },
     runtimeVersion: {
         policy: 'appVersion'

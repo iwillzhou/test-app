@@ -3,6 +3,11 @@ name: Reusable EAS Build Workflow
 on:
   workflow_call:
     inputs:
+      test:
+        description: 'Enable test'
+        required: false
+        default: false
+        type: boolean
       profile:
         description: 'EAS build profile (development / testing / staging / production)'
         required: true
@@ -17,12 +22,35 @@ on:
         description: 'An API acesss token for Expo'
 
 jobs:
+  test:
+    name: Test
+    if: inputs.test == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      
+      - name: Set up Pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 'latest'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+    
+      - name: Run tests
+        run: pnpm test
+
   android-build:
     name: Build Android APK
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
       
       - name: Set up Pnpm
@@ -66,10 +94,11 @@ jobs:
 
   ios-build:
     name: Build iOS IPA
+    needs: test
     runs-on: macos-latest
 
     steps: 
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up Pnpm

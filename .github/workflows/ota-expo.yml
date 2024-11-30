@@ -35,10 +35,9 @@ jobs:
       - name: Computed project fingerprints
         run: |
           echo "android-fingerprint=$(pnpm exec expo-updates fingerprint:generate --platform android | jq -r '.hash')" >> $GITHUB_ENV
-          echo "Android fingerprint is ${{ env.android-fingerprint }}"
       
       - name: Uploaded bundles
-        run: echo "Uploaded bundles"
+        run: echo "Android fingerprint is ${{ env.android-fingerprint }}"
       
   ios-update:
     name: Expo Update
@@ -68,9 +67,8 @@ jobs:
       - name: Computed project fingerprints
         run: |
           echo "ios-fingerprint=$(pnpm exec expo-updates fingerprint:generate --platform ios | jq -r '.hash')" >> $GITHUB_ENV
-          echo "iOS fingerprint is ${{ env.ios-fingerprint }}"
       
       - name: Uploaded bundles
-        run: echo "Uploaded bundles"
+        run: echo "iOS fingerprint is ${{ env.ios-fingerprint }}"
       
 

@@ -34,9 +34,12 @@ jobs:
         uses: expo/expo-github-action/continuous-deploy-fingerprint@main
         with:
           expo-token: ${{ secrets.EXPO_TOKEN }}
+      
+      - name: Print a message
+        run: echo "The value of MY_VARIABLE is ${{ env.MY_VARIABLE }}"
 
       - name: Display iOS fingerprint
-        run: echo "iOS fingerprint: ${{ steps.fingerprint.outputs.ios-fingerprint }}"
+        run: echo "iOS fingerprint is ${{ steps.fingerprint.outputs.ios-fingerprint }}"
 
       - name: Display Android fingerprint
-        run: echo "Android fingerprint: ${{ steps.fingerprint.outputs.android-fingerprint }}"
+        run: echo "Android fingerprint is ${{ steps.fingerprint.outputs.android-fingerprint }}"

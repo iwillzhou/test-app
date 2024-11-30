@@ -32,7 +32,7 @@ jobs:
       - name: Get runtimeVersion
         id: runtime-version
         run: |
-          echo "runtimeVersion=$(expo config --type public --json | jq -r '.runtimeVersion')" >> $GITHUB_ENV
+          echo "runtimeVersion=$(pnpm exec expo config --type public --json | jq -r '.runtimeVersion')" >> $GITHUB_ENV
 
       - name: Output runtimeVersion
         run: echo "RuntimeVersion is ${{ env.runtimeVersion }}"

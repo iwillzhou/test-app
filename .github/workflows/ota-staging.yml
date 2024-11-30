@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  update:
     uses: ./.github/workflows/ota-expo.yml
     secrets:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

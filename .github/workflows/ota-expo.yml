@@ -29,10 +29,12 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Get runtimeVersion
-        id: runtime-version
+      - name: Computed project fingerprints
         run: |
-          echo "runtimeVersion=$(pnpm exec expo config --type public --json | jq -r '.runtimeVersion')" >> $GITHUB_ENV
+          echo "android-fingerprint=$(pnpm exec expo-updates fingerprint:generate --platform android | jq -r '.hash')" >> $GITHUB_ENV
+          echo "ios-fingerprint=$(pnpm exec expo-updates fingerprint:generate --platform ios | jq -r '.hash')" >> $GITHUB_ENV
 
-      - name: Output runtimeVersion
-        run: echo "RuntimeVersion is ${{ env.runtimeVersion }}"
+      - name: Display fingerprint
+        run: |
+          echo "Android fingerprint is ${{ env.android-fingerprint }}"
+          echo "iOS fingerprint is ${{ env.ios-fingerprint }}"

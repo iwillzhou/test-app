@@ -29,17 +29,9 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Get Expo Fingerprint
+      - name: Check fingerprint
         id: fingerprint
-        uses: expo/expo-github-action/continuous-deploy-fingerprint@main
-        with:
-          expo-token: ${{ secrets.EXPO_TOKEN }}
-      
-      - name: Print a message
-        run: echo "The value of MY_VARIABLE is ${{ env.MY_VARIABLE }}"
+        uses: expo/expo-github-action/fingerprint@main
 
-      - name: Display iOS fingerprint
-        run: echo "iOS fingerprint is ${{ steps.fingerprint.outputs.ios-fingerprint }}"
-
-      - name: Display Android fingerprint
-        run: echo "Android fingerprint is ${{ steps.fingerprint.outputs.android-fingerprint }}"
+      - name: Display fingerprint
+        run: echo "iOS fingerprint is ${{ steps.fingerprint.outputs.current-fingerprint }}"

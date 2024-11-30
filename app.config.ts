@@ -14,7 +14,7 @@ const config: ExpoConfig = {
     icon: './assets/images/icon.png',
     scheme: 'myapp',
     userInterfaceStyle: 'automatic',
-    "newArchEnabled": true,
+    newArchEnabled: true,
     ios: {
         supportsTablet: true,
         bundleIdentifier: `com.test.myapp${appIdSuffix}`
@@ -48,11 +48,11 @@ const config: ExpoConfig = {
     },
     updates: {
         // url: 'https://expo-updates-server-nu.vercel.app/api/manifest',
-        url: 'http://localhost:3000/api/manifest',
+        url: 'http://localhost:3000/api/manifest'
         // url: 'http://10.0.2.2:3000/api/manifest'
     },
     runtimeVersion: {
-        policy: 'appVersion'
+        policy: 'fingerprint'
     },
     extra: {
         eas: {

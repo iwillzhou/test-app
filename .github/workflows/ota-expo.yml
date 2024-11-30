@@ -1,20 +1,16 @@
 name: Reusable Expo OTA Updates Workflow  
 
 on:
-  push:
-    branches:
-      - hotfix/*
-  pull_request:
-    branches:
-      - hotfix/*
+  workflow_call:
+    secrets:
+      EXPO_TOKEN:
+        description: 'An API acesss token for Expo'
 
 jobs:
   update:
     name: Expo Update
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,13 +25,18 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-      
-      - name: Setup EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          packager: pnpm
-          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
         run: pnpm i
+
+      - name: Get Expo Fingerprint
+        id: fingerprint
+        uses: expo/expo-github-action/continuous-deploy-fingerprint@main
+        with:
+          expo-token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Display iOS fingerprint
+        run: echo "iOS fingerprint: ${{ steps.fingerprint.outputs.ios-fingerprint }}"
+
+      - name: Display Android fingerprint
+        run: echo "Android fingerprint: ${{ steps.fingerprint.outputs.android-fingerprint }}"

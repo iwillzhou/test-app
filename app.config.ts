@@ -14,11 +14,7 @@ const config: ExpoConfig = {
     icon: './assets/images/icon.png',
     scheme: 'myapp',
     userInterfaceStyle: 'automatic',
-    splash: {
-        image: './assets/images/splash.png',
-        resizeMode: 'contain',
-        backgroundColor: '#ffffff'
-    },
+    "newArchEnabled": true,
     ios: {
         supportsTablet: true,
         bundleIdentifier: `com.test.myapp${appIdSuffix}`
@@ -36,7 +32,16 @@ const config: ExpoConfig = {
         favicon: './assets/images/favicon.png'
     },
     plugins: [
-        'expo-router'
+        'expo-router',
+        [
+            'expo-splash-screen',
+            {
+                image: './assets/images/splash-icon.png',
+                imageWidth: 200,
+                resizeMode: 'contain',
+                backgroundColor: '#ffffff'
+            }
+        ]
     ],
     experiments: {
         typedRoutes: true

@@ -87,5 +87,5 @@ jobs:
             curl -X POST $VERCEL_UPLOAD_URL/api/upload \
               -H "Authorization: Bearer $VERCEL_BLOB_READ_WRITE_TOKEN" \
               -F "file=@$file" \
-              -F "path=$PATH_PREFIX/$path" \
+              -F "path=$PATH_PREFIX/$path"
           done

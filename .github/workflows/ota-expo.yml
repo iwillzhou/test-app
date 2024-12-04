@@ -10,8 +10,7 @@ on:
       platform:
         description: 'android or ios'
         required: true
-        type: string
-        
+        type: string     
     secrets:
       EXPO_TOKEN:
         description: 'An API acesss token for Expo'
@@ -24,6 +23,10 @@ jobs:
   update:
     name: Expo Update
     runs-on: ubuntu-latest
+    env:
+      CHANNEL: ${{ inputs.channel }}
+      VERCEL_UPLOAD_URL: ${{ secrets.VERCEL_UPLOAD_URL }}
+      VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -72,14 +75,11 @@ jobs:
       - name: Get the path prefix 
         if: ${{ env.PROJECT_ID != '' && env.FINGERPRINT != '' && env.TIMESTAMP != '' }}
         run: |
-          PATH_PREFIX=$PROJECT_ID/${{ inputs.channel }}/${{ inputs.platform }}/$FINGERPRINT/$TIMESTAMP
+          PATH_PREFIX=$PROJECT_ID/$CHANNEL/${{ inputs.platform }}/$FINGERPRINT/$TIMESTAMP
           echo "PATH_PREFIX=$PATH_PREFIX"  >> $GITHUB_ENV
           echo "The path prefix is $PATH_PREFIX"
 
       - name: Upload bundles to Vercel Blob Storage
-        env:
-          VERCEL_UPLOAD_URL: ${{ secrets.VERCEL_UPLOAD_URL }}
-          VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
         run: |
           for file in $(find ./dist -type f); do
             path=$(echo "$file" | sed 's|^./dist/||')

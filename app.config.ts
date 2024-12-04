@@ -47,7 +47,7 @@ const config: ExpoConfig = {
         typedRoutes: true
     },
     updates: {
-        url: `https://expo.onepixel.vip/api/manifest?id=58154bdd-70ab-49f4-8c0b-cd74e32e3370&channel=${process.env.APP_ENV}`
+        url: `https://expo.onepixel.vip/api/manifest?id=58154bdd-70ab-49f4-8c0b-cd74e32e3370&channel=${process.env.CHANNEL}`
     },
     runtimeVersion: {
         policy: 'fingerprint'

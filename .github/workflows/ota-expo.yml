@@ -44,7 +44,7 @@ jobs:
         run: pnpm i
 
       - name: Exported bundles
-        run: pnpm exec expo export --platform ${{ inputs.platform }}"
+        run: pnpm exec expo export --platform ${{ inputs.platform }}
 
       - name: Copy expo config to dist
         run: npx expo config --json > dist/expoConfig.json

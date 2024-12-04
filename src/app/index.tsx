@@ -24,7 +24,7 @@ export default function Index() {
                 alignItems: 'center'
             }}
         >
-            <Text>Hello world.</Text>
+            <Text>Hello world. OTA updates is working! </Text>
             <Text>Edit app/index.tsx to edit this screen.</Text>
             <Text>NODE_ENV: {process.env.NODE_ENV}</Text>
             <Text>API_URL: {process.env.API_URL}</Text>

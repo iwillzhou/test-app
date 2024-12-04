@@ -28,6 +28,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Check if curl is installed
+        run: |
+          if ! command -v curl &> /dev/null; then
+            echo "curl is not installed, installing now..."
+            sudo apt-get update && sudo apt-get install -y curl
+          else
+            echo "curl is already installed"
+          fi
       
       - name: Set up Pnpm
         uses: pnpm/action-setup@v4

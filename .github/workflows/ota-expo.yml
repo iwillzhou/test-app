@@ -55,7 +55,7 @@ jobs:
           echo "FINGERPRINT=$FINGERPRINT" >> $GITHUB_ENV
       
       - name: Get eas projectid
-        run: echo "PROJECT_ID=(jq -r '.extra.eas.projectId' dist/expoConfig.json)" >> $GITHUB_ENV
+        run: echo "PROJECT_ID=$(jq -r '.extra.eas.projectId' dist/expoConfig.json)" >> $GITHUB_ENV
       
       - name: Generate Unix Timestamp
         run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV

@@ -84,7 +84,7 @@ jobs:
           for file in $(find ./dist -type f); do
             path=$(echo "$file" | sed 's|^./dist/||')
             echo "Uploading file: $path"
-            curl -X POST $VERCEL_UPLOAD_URL/api/upload \
+            curl -X POST "$VERCEL_UPLOAD_URL/api/upload" \
               -H "Authorization: Bearer $VERCEL_BLOB_READ_WRITE_TOKEN" \
               -F "file=@$file" \
               -F "path=$PATH_PREFIX/$path"

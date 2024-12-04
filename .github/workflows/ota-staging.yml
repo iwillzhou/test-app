@@ -6,7 +6,22 @@ on:
       - master
 
 jobs:
-  update:
+  android-update:
     uses: ./.github/workflows/ota-expo.yml
+    with:
+      channel: staging
+      platform: android
     secrets:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      VERCEL_UPLOAD_URL: ${{ secrets.VERCEL_UPLOAD_URL }}
+      VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
+
+  ios-update:
+    uses: ./.github/workflows/ota-expo.yml
+    with:
+      channel: staging
+      platform: ios
+    secrets:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      VERCEL_UPLOAD_URL: ${{ secrets.VERCEL_UPLOAD_URL }}
+      VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}

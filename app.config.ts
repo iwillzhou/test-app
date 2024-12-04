@@ -47,10 +47,7 @@ const config: ExpoConfig = {
         typedRoutes: true
     },
     updates: {
-        // url: 'https://expo-updates-server-nu.vercel.app/api/manifest',
-        url: 'http://localhost:3000/api/manifest'
-        // url: 'https://u.expo.dev/58154bdd-70ab-49f4-8c0b-cd74e32e3370'
-        // url: 'http://10.0.2.2:3000/api/manifest'
+        url: `https://expo.onepixel.vip/api/manifest?id=58154bdd-70ab-49f4-8c0b-cd74e32e3370&channel=${process.env.APP_ENV}`
     },
     runtimeVersion: {
         policy: 'fingerprint'

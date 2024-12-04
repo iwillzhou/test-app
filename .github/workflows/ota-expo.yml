@@ -2,12 +2,26 @@ name: Reusable Expo OTA Updates Workflow
 
 on:
   workflow_call:
+    inputs:
+      channel:
+        description: 'staging / production'
+        required: true
+        type: string
+      platform:
+        description: 'android or ios'
+        required: true
+        type: string
+        
     secrets:
       EXPO_TOKEN:
         description: 'An API acesss token for Expo'
+      VERCEL_UPLOAD_URL:
+        description: 'An API endpoint for uplading to Vercel blob storage'
+      VERCEL_BLOB_READ_WRITE_TOKEN:
+        description: 'An API acesss token for Vercel blob storage'
 
 jobs:
-  anroid-update:
+  update:
     name: Expo Update
     runs-on: ubuntu-latest
 
@@ -30,45 +44,40 @@ jobs:
         run: pnpm i
 
       - name: Exported bundles
-        run: pnpm exec expo export --platform android
+        run: pnpm exec expo export --platform ${{ inputs.platform }}"
 
-      - name: Computed project fingerprints
+      - name: Copy expo config to dist
+        run: npx expo config --json > dist/expoConfig.json
+
+      - name: Computed project fingerprint/rumtimeVersion
         run: |
-          echo "android-fingerprint=$(pnpm exec expo-updates fingerprint:generate --platform android | jq -r '.hash')" >> $GITHUB_ENV
+          FINGERPRINT=$(pnpm exec expo-updates fingerprint:generate --platform ${{ inputs.platform }} | jq -r '.hash')
+          echo "FINGERPRINT=$FINGERPRINT" >> $GITHUB_ENV
       
-      - name: Uploaded bundles
-        run: echo "Android fingerprint is ${{ env.android-fingerprint }}"
+      - name: Get eas projectid
+        run: echo "PROJECT_ID=(npx expo config --json | jq -r '.extra.eas.projectId')" >> $GITHUB_ENV
       
-  ios-update:
-    name: Expo Update
-    runs-on: ubuntu-latest
+      - name: Generate Unix Timestamp
+        run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Set up Pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 'latest'
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm i
-
-      - name: Exported bundles
-        run: pnpm exec expo export --platform ios
-
-      - name: Computed project fingerprints
+      - name: Get the path prefix 
+        if: ${{ env.PROJECT_ID != '' && env.FINGERPRINT != '' && env.TIMESTAMP != '' }}
         run: |
-          echo "ios-fingerprint=$(pnpm exec expo-updates fingerprint:generate --platform ios | jq -r '.hash')" >> $GITHUB_ENV
-      
-      - name: Uploaded bundles
-        run: echo "iOS fingerprint is ${{ env.ios-fingerprint }}"
-      
+          PATH_PREFIX=$PROJECT_ID/${{ inputs.platform }}/${{ inputs.channel }}/$FINGERPRINT/$TIMESTAMP/
+          echo "PATH_PREFIX=$PATH_PREFIX"  >> $GITHUB_ENV
+          echo "The path prefix is $PATH_PREFIX"
 
+      - name: Upload bundles to Vercel Blob Storage
+        env:
+          VERCEL_UPLOAD_URL: ${{ secrets.VERCEL_UPLOAD_URL }}
+          VERCEL_BLOB_READ_WRITE_TOKEN: ${{ secrets.VERCEL_BLOB_READ_WRITE_TOKEN }}
+        if: github.ref == 'refs/heads/main'
+        run: |
+          for file in $(find ./dist -type f); do
+            PATH=$PATH_PREFIX/$(echo "$file" | sed 's|^./dist/||')
+            echo "Uploading file: $PATH"
+            curl -X POST $VERCEL_UPLOAD_URL/api/upload \
+              -H "Authorization: Bearer $VERCEL_BLOB_READ_WRITE_TOKEN" \
+              -F "file=@$file"
+              -F "path=$PATH"
+          done

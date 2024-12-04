@@ -72,7 +72,7 @@ jobs:
       - name: Get the path prefix 
         if: ${{ env.PROJECT_ID != '' && env.FINGERPRINT != '' && env.TIMESTAMP != '' }}
         run: |
-          PATH_PREFIX=$PROJECT_ID/${{ inputs.platform }}/${{ inputs.channel }}/$FINGERPRINT/$TIMESTAMP/
+          PATH_PREFIX=$PROJECT_ID/${{ inputs.platform }}/${{ inputs.channel }}/$FINGERPRINT/$TIMESTAMP
           echo "PATH_PREFIX=$PATH_PREFIX"  >> $GITHUB_ENV
           echo "The path prefix is $PATH_PREFIX"
 

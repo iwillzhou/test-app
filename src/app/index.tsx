@@ -21,7 +21,8 @@ export default function Index() {
             style={{
                 flex: 1,
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                backgroundColor: 'red'
             }}
         >
             <Text>Hello world. OTA updates is working! </Text>

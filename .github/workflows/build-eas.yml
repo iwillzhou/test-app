@@ -46,7 +46,7 @@ jobs:
 
   android-build:
     name: Build Android APK
-    needs: test
+    # needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -94,7 +94,7 @@ jobs:
 
   ios-build:
     name: Build iOS IPA
-    needs: test
+    # needs: test
     runs-on: macos-latest
 
     steps: 

@@ -28,6 +28,7 @@ export default function Index() {
             <Text>Edit app/index.tsx to edit this screen.</Text>
             <Text>NODE_ENV: {process.env.NODE_ENV}</Text>
             <Text>APP_ENV: {process.env.APP_ENV}</Text>
+            <Text>EXPO_PUBLIC_TEST: {process.env.EXPO_PUBLIC_TEST}</Text>
             <Text>EXPO_PUBLIC_API_URL: {process.env.EXPO_PUBLIC_API_URL}</Text>
             <Button title="Fetch update" onPress={onFetchUpdateAsync} />
         </View>

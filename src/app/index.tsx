@@ -21,10 +21,11 @@ export default function Index() {
             style={{
                 flex: 1,
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                backgroundColor: 'red'
             }}
         >
-            <Text>Hello world. </Text>
+            <Text>Hello world. OTA updates is working!</Text>
             <Text>Edit app/index.tsx to edit this screen.</Text>
             <Text>NODE_ENV: {process.env.NODE_ENV}</Text>
             <Text>APP_ENV: {process.env.APP_ENV}</Text>
